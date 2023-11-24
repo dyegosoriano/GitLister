@@ -2,17 +2,39 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "@rocketseat/eslint-config/react",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["react-refresh"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
+    "react-refresh/only-export-components": [
+      "warn",
       { allowConstantExport: true },
     ],
+    "no-use-before-define": "off",
+    "multiline-ternary": "off",
+    "no-useless-escape": "off",
+    "no-unused-vars": "error",
+    "no-console": "off",
+    camelcase: "off",
+    "prettier/prettier": [
+      "error",
+      {
+        trailingComma: "none",
+        bracketSpacing: true,
+        arrowParens: "avoid",
+        proseWrap: "always",
+        singleQuote: true,
+        endOfLine: "auto",
+        printWidth: 120,
+        useTabs: false,
+        tabWidth: 2,
+        semi: false,
+      },
+    ],
   },
-}
+};
