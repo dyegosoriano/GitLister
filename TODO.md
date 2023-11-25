@@ -17,8 +17,8 @@
 # Lista de stack a serem utilizadas
 
 [*] - ReactJS
-[ ] - React Router https://reactrouter.com/en/main
-[ ] - Tailwind https://tailwindcss.com/docs/
+[*] - React Router https://reactrouter.com/en/main
+[*] - Tailwind https://tailwindcss.com/docs/
 [ ] - Axios https://axios-http.com/docs/intro
 [ ] - React Query https://tanstack.com/query/v3/docs/react/overview
 

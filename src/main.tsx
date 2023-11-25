@@ -1,3 +1,5 @@
+import './styles/globals.css'
+
 import React from 'react'
 import * as Router from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
