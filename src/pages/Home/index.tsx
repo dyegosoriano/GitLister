@@ -1,6 +1,6 @@
 import React, { ComponentProps, useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import { FiMail, FiMapPin, FiStar, FiUsers } from 'react-icons/fi'
+import { NavLink } from 'react-router-dom'
 
 import { mockRepositories } from '../../utils/mocks'
 import { IRepositories, IUser } from '../../types'
@@ -14,7 +14,7 @@ export const Home: React.FC<IProps> = () => {
   const [user, setUser] = useState<IUser>({})
 
   return (
-    <div className="h-full pb-28 bg-background">
+    <div className="min-h-screen pb-28 bg-background">
       <Header subtitle="Uma janela para o mundo dos desenvolvedores." title="GitLister" />
 
       {!user && (
