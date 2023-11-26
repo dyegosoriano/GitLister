@@ -9,8 +9,9 @@
 # Passo a passo
 
 [*] - Configuração do eslint.
-[ ] - Configurações da estrutura do projeto.
-[ ] - Configuração da estrutura de rotas.
+[*] - Configurações da estrutura do projeto.
+[*] - Configuração da estrutura de rotas.
+[*] - Criação das tipagens.
 [ ] - Criação das páginas referentes com dados mocados.
 [ ] - Criação das service responsáveis pela conexão com api do github.
 
