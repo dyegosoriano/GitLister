@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react'
+import React, { ComponentProps, useState } from 'react'
 import { FiMail, FiMapPin, FiStar, FiUsers } from 'react-icons/fi'
 import { NavLink } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -6,24 +6,25 @@ import { useQuery } from 'react-query'
 import { Button, Header } from '../../components'
 import { Input } from '../../components/Input'
 import * as api from '../../services/modules'
+import * as utils from '../../utils'
 
 type IProps = ComponentProps<'div'>
 
 export const Home: React.FC<IProps> = () => {
-  const { isFetched, data } = useQuery('user', fetchData, {})
+  const [username, setUsername] = useState<string>()
+
+  const { isFetched, isFetching, data, refetch } = useQuery('user', fetchData, { refetchOnWindowFocus: false })
 
   async function fetchData() {
+    if (!username) return
+
     try {
-      const [test, user] = await Promise.all([
-        api.users.list_repositories('dyegosoriano'),
-        api.users.show('dyegosoriano')
-      ])
+      const [repositories, user] = await Promise.all([api.users.list_repositories(username), api.users.show(username)])
+      const repos_formatted = repositories.map(item => ({ ...item, full_name: item.full_name.replace('/', '-') }))
 
-      const repositories = test.map(item => ({ ...item, full_name: item.full_name.replace('/', '-') }))
-
-      return { repositories, user }
-    } catch (error) {
-      console.log(error)
+      return { repositories: repos_formatted, user }
+    } catch (error: any) {
+      utils.toastify('Ocorreu um erro ao carregar os dados do usuário!', 'error')
     }
   }
 
@@ -41,11 +42,13 @@ export const Home: React.FC<IProps> = () => {
           <div className="grid gap-8">
             <Input.Container>
               <Input.Label text="Usuário" />
-              <Input.Field placeholder="Digite o nome do suário" />
+              <Input.Field placeholder="Digite o nome do suário" onChange={event => setUsername(event.target.value)} />
               <Input.Error text="mensagem de erro" />
             </Input.Container>
 
-            <Button type="button">Buscar</Button>
+            <Button disabled={isFetching} type="button" onClick={refetch}>
+              {isFetching ? 'Buscando...' : 'Buscar'}
+            </Button>
           </div>
         </div>
       )}
@@ -68,7 +71,10 @@ export const Home: React.FC<IProps> = () => {
                     <h2 className="font-medium text-3xl mt-4 hover:underline cursor-pointer">{data?.user.name}</h2>
                   </a>
 
-                  <p className="text-md">{data?.user.login}</p>
+                  <p className="text-md">
+                    <strong>Username: </strong>
+                    {data?.user.login}
+                  </p>
                 </div>
 
                 <div className="flex flex-col md:items-end">
@@ -95,7 +101,10 @@ export const Home: React.FC<IProps> = () => {
               </div>
             </div>
 
-            <p className="text-base">{data?.user.bio || 'Nenhuma descrição foi fornecida.'}</p>
+            <div>
+              <h3 className="text-xl font-bold mb-2">Descrição</h3>
+              <p>{data?.user.bio || 'Nenhuma descrição foi fornecida.'}</p>
+            </div>
           </div>
 
           <div className="max-w-5xl w-full mx-4 md:mx-auto mt-8 p-4 md:p-12 rounded-md bg-white text-purple">
