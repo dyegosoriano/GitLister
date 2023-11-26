@@ -1,6 +1,8 @@
+import 'react-toastify/dist/ReactToastify.css'
 import './styles/globals.css'
 
 import React from 'react'
+import { ToastContainer } from 'react-toastify'
 import * as Router from 'react-router-dom'
 import * as ReactQuery from 'react-query'
 import ReactDOM from 'react-dom/client'
@@ -13,5 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ReactQuery.QueryClientProvider client={queryClient}>
       <Router.RouterProvider router={router} />
     </ReactQuery.QueryClientProvider>
+
+    <ToastContainer />
   </React.StrictMode>
 )
