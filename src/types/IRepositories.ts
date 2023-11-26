@@ -1,4 +1,4 @@
-export type IRepository = {
+type IRepository = {
   id: number
   node_id: string
   name: string
@@ -91,13 +91,12 @@ export type IRepository = {
   allow_forking: boolean
   is_template: boolean
   web_commit_signoff_required: boolean
-  topics: string[]
+  topics?: string[]
   visibility: string
   forks: number
   open_issues: number
   watchers: number
   default_branch: string
-  temp_clone_token?: string
-  network_count: number
-  subscribers_count: number
 }
+
+export type IRepositories = IRepository[]
