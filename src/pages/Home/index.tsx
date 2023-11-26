@@ -18,7 +18,7 @@ export const Home: React.FC<IProps> = () => {
       <Header subtitle="Uma janela para o mundo dos desenvolvedores." title="GitLister" />
 
       {!user && (
-        <div className="grid gap-12 grid-cols-[1fr_auto] max-w-5xl w-full mx-auto mt-16 p-12 rounded-md bg-white">
+        <div className="grid gap-12 md:grid-cols-[1fr_auto] max-w-5xl w-full mx-auto mt-16 p-12 rounded-md bg-white">
           <p className="text-base text-purple">
             Descubra projetos inovadores, acompanhe as tendências de código e conecte-se com a comunidade global de
             criadores. Mergulhe na diversidade de repositórios e veja a magia da colaboração acontecer em tempo real.
@@ -31,31 +31,32 @@ export const Home: React.FC<IProps> = () => {
               <Input.Error text="mensagem de erro" />
             </Input.Container>
 
-            <Button type="button">Buscar</Button>
+            <Button className="h-12" type="button">
+              Buscar
+            </Button>
           </div>
         </div>
       )}
 
       {user && (
         <>
-          <div className="grid gap-6 max-w-5xl w-full mx-auto mt-16 p-12 rounded-md bg-white text-purple">
+          <div className="grid gap-6 max-w-5xl w-full mx-4 md:mx-auto mt-16 p-4 md:p-12 rounded-md bg-white text-purple">
             <div className="grid gap-6 grid-cols-[auto_1fr]">
-              <div className="flex justify-center items-center w-40 h-40 bg-background rounded-full">
+              <div className="flex justify-center items-center w-32 h-32 md:w-40 md:h-40 bg-background rounded-full">
                 <img
-                  className="w-36 h-36 rounded-full"
+                  className="w-28 h-28 md:w-36 md:h-36 rounded-full"
                   src="https://avatars.githubusercontent.com/u/4140145?v=4"
                   alt="Foto do usuário Dyego Soriano."
                 />
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-col md:flex-row">
                 <div>
                   <h2 className="font-medium text-3xl mt-4">Dyego Soriano</h2>
-
                   <p className="text-md">dyegosoriano</p>
                 </div>
 
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col md:items-end">
                   <span className="flex items-center">
                     <FiUsers className="mr-2" size={18} /> 12 seguidores | 19 seguindo | 38 repositórios.
                   </span>
@@ -81,7 +82,7 @@ export const Home: React.FC<IProps> = () => {
             </p>
           </div>
 
-          <div className="max-w-5xl w-full mx-auto mt-8 p-12 rounded-md bg-white text-purple">
+          <div className="max-w-5xl w-full mx-4 md:mx-auto mt-8 p-4 md:p-12 rounded-md bg-white text-purple">
             <h2 className="font-medium text-3xl mb-12">Lista de repositórios</h2>
 
             <div className="grid gap-2">
