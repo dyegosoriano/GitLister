@@ -1,5 +1,5 @@
 import React, { ComponentProps, useState } from 'react'
-import { FiMail, FiMapPin, FiStar, FiUsers } from 'react-icons/fi'
+import { FiChevronDown, FiChevronUp, FiMail, FiMapPin, FiStar, FiUsers } from 'react-icons/fi'
 import { NavLink } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
@@ -16,27 +16,35 @@ export const Home: React.FC<IProps> = () => {
 
   const { isFetched, isFetching, data, refetch } = useQuery('user', fetchData, { refetchOnWindowFocus: false })
   const [username, setUsername] = useState<string | null>(user?.login || null)
+  const [order, setOrder] = useState<'DESC' | 'ASC'>('DESC')
 
   async function fetchData() {
     if (!username) return
 
     try {
-      const [repositories_response, user_response] = await Promise.all([
+      const [repos_response, user_response] = await Promise.all([
         api.users.list_repositories(username),
         api.users.show(username)
       ])
 
-      const repos_formatted = repositories_response.map(item => ({
-        ...item,
-        full_name: item.full_name.replace('/', '-')
-      }))
+      const repos_formatted = repos_response.map(item => ({ ...item, full_name: item.full_name.replace('/', '-') }))
+      const repos_sorted = repos_formatted.sort((a, b) => a.stargazers_count - b.stargazers_count)
 
       saveUser(user_response)
 
-      return { repositories: repos_formatted, user: user_response }
+      return { repositories: repos_sorted, user: user_response }
     } catch (error: any) {
       utils.erros.errorHandling(error, 'Usuário não encontrado!')
     }
+  }
+
+  const reorderRepositories = () => {
+    const new_order = order === 'DESC' ? 'ASC' : 'DESC'
+
+    if (order === 'DESC') data?.repositories?.sort((a, b) => b.stargazers_count - a.stargazers_count)
+    if (order === 'ASC') data?.repositories?.sort((a, b) => a.stargazers_count - b.stargazers_count)
+
+    setOrder(new_order)
   }
 
   return (
@@ -124,7 +132,13 @@ export const Home: React.FC<IProps> = () => {
           </div>
 
           <div className="max-w-5xl w-full mx-4 md:mx-auto mt-8 p-4 md:p-12 rounded-md bg-white text-purple">
-            <h2 className="font-medium text-3xl mb-12">Lista de repositórios</h2>
+            <div className="flex justify-between items-center mb-12">
+              <h2 className="font-medium text-3xl">Lista de repositórios</h2>
+
+              <Button className="w-28 h-12" onClick={reorderRepositories} type="button">
+                Ordenar {order === 'ASC' ? <FiChevronUp size={22} /> : <FiChevronDown size={22} />}
+              </Button>
+            </div>
 
             <div className="grid gap-2">
               {data?.repositories?.map(repository => (

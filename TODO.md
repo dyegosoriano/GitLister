@@ -2,8 +2,8 @@
 
 [*] - Eu, como usuário, desejo buscar por um usuário do GitHub;
 [*] - Eu, como usuário, desejo ver os detalhes do usuário buscado (número de seguidores, número de seguidos, imagem do avatar, e-mail e bio);
-[ ] - Eu, como usuário, desejo ver a listagem dos repositórios desse usuário que foi buscado, ordenados pelo número decrescente de estrelas;
-[ ] - Eu, como usuário, desejo poder alterar a ordem da listagem de repositórios;
+[*] - Eu, como usuário, desejo ver a listagem dos repositórios desse usuário que foi buscado, ordenados pelo número decrescente de estrelas;
+[*] - Eu, como usuário, desejo poder alterar a ordem da listagem de repositórios;
 [*] - Eu, como usuário, desejo ver uma página com os detalhes de um repositório (nome, descrição, ,número de estrelas, linguagem e um link externo para a página do repositório no GitHub), que pode ser clicado na listagem dos repositórios;
 
 # Passo a passo
