@@ -5,24 +5,35 @@ import { useQuery } from 'react-query'
 
 import { Button, Header } from '../../components'
 import { Input } from '../../components/Input'
+import { useUser } from '../../hooks/useUser'
 import * as api from '../../services/modules'
 import * as utils from '../../utils'
 
 type IProps = ComponentProps<'div'>
 
 export const Home: React.FC<IProps> = () => {
-  const [username, setUsername] = useState<string>()
+  const { removeUser, saveUser, user } = useUser()
 
   const { isFetched, isFetching, data, refetch } = useQuery('user', fetchData, { refetchOnWindowFocus: false })
+  const [username, setUsername] = useState<string | null>(user?.login || null)
 
   async function fetchData() {
     if (!username) return
 
     try {
-      const [repositories, user] = await Promise.all([api.users.list_repositories(username), api.users.show(username)])
-      const repos_formatted = repositories.map(item => ({ ...item, full_name: item.full_name.replace('/', '-') }))
+      const [repositories_response, user_response] = await Promise.all([
+        api.users.list_repositories(username),
+        api.users.show(username)
+      ])
 
-      return { repositories: repos_formatted, user }
+      const repos_formatted = repositories_response.map(item => ({
+        ...item,
+        full_name: item.full_name.replace('/', '-')
+      }))
+
+      saveUser(user_response)
+
+      return { repositories: repos_formatted, user: user_response }
     } catch (error: any) {
       utils.erros.errorHandling(error, 'Usuário não encontrado!')
     }
@@ -32,7 +43,7 @@ export const Home: React.FC<IProps> = () => {
     <div className="min-h-screen pb-28 bg-background">
       <Header subtitle="Uma janela para o mundo dos desenvolvedores." title="GitLister" />
 
-      {!data?.user && (
+      {(!data?.user || !user) && (
         <div className="grid gap-12 md:grid-cols-[1fr_auto] max-w-5xl w-full mx-auto mt-16 p-12 rounded-md bg-white">
           <p className="text-base text-purple">
             Descubra projetos inovadores, acompanhe as tendências de código e conecte-se com a comunidade global de
@@ -43,17 +54,16 @@ export const Home: React.FC<IProps> = () => {
             <Input.Container>
               <Input.Label text="Usuário" />
               <Input.Field placeholder="Digite o nome do suário" onChange={event => setUsername(event.target.value)} />
-              <Input.Error text="mensagem de erro" />
             </Input.Container>
 
-            <Button disabled={isFetching} type="button" onClick={refetch}>
+            <Button disabled={isFetching} type="button" onClick={() => refetch()}>
               {isFetching ? 'Buscando...' : 'Buscar'}
             </Button>
           </div>
         </div>
       )}
 
-      {isFetched && data?.user && (
+      {isFetched && data?.user && !!user && (
         <>
           <div className="grid gap-6 max-w-5xl w-full mx-4 md:mx-auto mt-16 p-4 md:p-12 rounded-md bg-white text-purple">
             <div className="grid gap-6 grid-cols-[auto_1fr]">
@@ -104,6 +114,12 @@ export const Home: React.FC<IProps> = () => {
             <div>
               <h3 className="text-xl font-bold mb-2">Descrição</h3>
               <p>{data?.user.bio || 'Nenhuma descrição foi fornecida.'}</p>
+            </div>
+
+            <div className="mx-auto mt-12">
+              <Button onClick={removeUser} type="button">
+                Efetuar nova busca
+              </Button>
             </div>
           </div>
 
