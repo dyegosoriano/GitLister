@@ -13,14 +13,14 @@
 [*] - Configuração da estrutura de rotas.
 [*] - Criação das tipagens.
 [*] - Criação das páginas referentes com dados mocados.
-[ ] - Criação das service responsáveis pela conexão com api do github.
+[*] - Criação das service responsáveis pela conexão com api do github.
 
 # Lista de stack a serem utilizadas
 
 [*] - ReactJS
 [*] - React Router https://reactrouter.com/en/main
 [*] - Tailwind https://tailwindcss.com/docs/
-[ ] - Axios https://axios-http.com/docs/intro
+[*] - Axios https://axios-http.com/docs/intro
 [ ] - React Query https://tanstack.com/query/v3/docs/react/overview
 
 # Links da api
