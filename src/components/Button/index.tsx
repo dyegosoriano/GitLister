@@ -2,9 +2,9 @@ import React, { ComponentProps } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const variant = tv({
-  base: 'flex justify-center items-center max-w-xs w-full bg-secondary hover:bg-primary text-white text-sm font-medium rounded-md border-none',
-  variants: { size: { sm: 'py-2', xs: 'py-4' } },
-  defaultVariants: { size: 'xs' }
+  base: 'flex justify-center items-center h-12 bg-secondary hover:bg-primary text-white text-sm font-medium rounded-md border-none',
+  variants: { size: { sm: 'w-64 py-4', xs: 'w-32 py-2' } },
+  defaultVariants: { size: 'sm' }
 })
 
 type IProps = ComponentProps<'button'> & VariantProps<typeof variant>
