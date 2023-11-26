@@ -24,7 +24,7 @@ export const Home: React.FC<IProps> = () => {
 
       return { repositories: repos_formatted, user }
     } catch (error: any) {
-      utils.toastify('Ocorreu um erro ao carregar os dados do usuário!', 'error')
+      utils.erros.errorHandling(error, 'Usuário não encontrado!')
     }
   }
 

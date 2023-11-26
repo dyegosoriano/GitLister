@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react'
+import React, { ComponentProps, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { FiEye, FiStar } from 'react-icons/fi'
 import { useQuery } from 'react-query'
@@ -11,6 +11,7 @@ import * as utils from '../../utils'
 type IProps = ComponentProps<'div'>
 
 export const Repository: React.FC<IProps> = () => {
+  const [errorMessage, setErrorMessage] = useState<string>()
   const { full_name } = useParams()
 
   const { status, data } = useQuery('repository/' + full_name, fetchData, { refetchOnWindowFocus: false })
@@ -21,8 +22,9 @@ export const Repository: React.FC<IProps> = () => {
     try {
       const repository = await api.repositories.show(full_name.replace('-', '/'))
       return { repository }
-    } catch (error) {
-      utils.toastify('Não foi possível carregar o repositório!', 'error')
+    } catch (error: any) {
+      const message = utils.erros.errorHandling(error, 'Repositório não encontrado!')
+      setErrorMessage(message)
     }
   }
 
@@ -32,9 +34,7 @@ export const Repository: React.FC<IProps> = () => {
 
       <div className="grid max-w-5xl w-full mx-4 md:mx-auto mt-16 p-4 md:p-12 rounded-md bg-white text-purple">
         {status === 'loading' && <span className="mx-auto py-36 text-lg font-semibold">Carregando dados...</span>}
-        {status === 'error' && (
-          <span className="mx-auto py-36 text-lg font-semibold">Não foi possível carregar o repositório!</span>
-        )}
+        {!!errorMessage && <span className="mx-auto py-36 text-lg font-semibold">{errorMessage}</span>}
 
         {status === 'success' && !!data?.repository && (
           <>
