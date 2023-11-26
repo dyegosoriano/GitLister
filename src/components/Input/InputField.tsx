@@ -2,7 +2,7 @@ import React, { ComponentProps } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
 
 const variant = tv({
-  base: 'appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline',
+  base: 'w-full py-2 px-3 border rounded-md text-purple focus:outline-none focus:shadow-outline',
   variants: { size: { sm: 'py-2', xs: 'py-4' } },
   defaultVariants: { size: 'xs' }
 })

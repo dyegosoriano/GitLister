@@ -7,8 +7,8 @@ export default {
         primary: '#8257E5',
         secondary: '#04D361',
         warning: '#E33D3D',
-        text: '#32264D',
-        background: '#DCDCE5',
+        purple: '#32264D',
+        background: '#E5E5E5',
         disabled: '#9C98A6',
         white: '#FFFFFF'
       }
