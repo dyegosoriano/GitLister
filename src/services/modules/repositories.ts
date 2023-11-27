@@ -1,4 +1,4 @@
-import { IRepository } from '../../types'
+import { IRepository } from '../../types/IRepository'
 import { clientApi } from '../clientApi'
 
 const route = 'repos/'

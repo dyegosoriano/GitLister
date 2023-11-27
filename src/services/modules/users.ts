@@ -1,4 +1,5 @@
-import { IRepositories, IUser } from '../../types'
+import { IRepositories } from '../../types/IRepositories'
+import { IUser } from '../../types/IUser'
 import { clientApi } from '../clientApi'
 
 const route = 'users/'
