@@ -5,7 +5,7 @@
   <br>
 </p>
 
-# Bem-vindo ao GitList
+# Bem-vindo ao GitLister
 
 Este é um projeto web que lista usuários do GitHub. Ele foi projetado para ajudar desenvolvedores e entusiastas do código aberto a descobrir novos colaboradores e explorar a comunidade do GitHub.
 
